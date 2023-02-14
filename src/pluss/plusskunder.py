@@ -5,6 +5,7 @@
 # Import external libraries
 import streamlit as st
 import pandas as pd
+import pydeck as pdk
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
@@ -117,3 +118,58 @@ with st.container():
     fig.update_yaxes(title_text='Installert effekt', secondary_y=True)
 
     st.plotly_chart(fig, use_container_width=True)
+
+with st.container():
+    st.subheader('Geografisk fremstilling')
+    st.markdown('''Hvor er plusskundeanleggene i landet? \nHold inne _ctrl_ og bruk musepekeren
+    for å vinkle kartet. Bruk pilen oppe i høyre hjørne for fullskjerm.  \nHer kan vi legge disse 
+    fargede feltene akkurat som vi vil, men behøver hjelp for å få definerte koordinater for 
+    prisområdene.''')
+
+    df_map = pd.DataFrame({'lat': df['Latitude'], 'lon': df['Longitude']})
+    df_map = df_map[df_map['lat'] != '(blank)']
+    df_map = df_map.apply(pd.to_numeric)
+    no1 = [[[10, 59.65], [10,  60.65], [11, 60.65], [11.5, 60], [11, 59.65]]]
+    no2 = [[[6.5, 59], [6.9, 58.7], [7.4, 59], [7.3, 59.2], [7, 59.3]]]
+
+    hex_layer = pdk.Layer(
+        "HexagonLayer",
+        df_map,
+        pickable=True,
+        auto_highlight=True,
+        elevation_scale=20,
+        extruded=True,
+        get_position=['lon', 'lat'],
+        colorScaleType='ordinal'
+    )
+
+    poly_no1 = pdk.Layer(
+        'PolygonLayer',
+        no1,
+        stroked=False,
+        get_polygon='-',
+        get_fill_color=[255, 10, 120, 70]
+    )
+
+    poly_no2 = pdk.Layer(
+        'PolygonLayer',
+        no2,
+        stroked=False,
+        get_polygon='-',
+        get_fill_color=[51, 255, 120, 70]
+    )
+
+    view_state = pdk.ViewState(latitude=60.2, longitude=10, zoom=5, bearing=0, pitch=30)
+
+    map_design = st.selectbox('Velg design på kart',
+        options=['light', 'dark', 'road'],
+        format_func=str.capitalize)
+    st.write(f'Bruker kart design: {map_design}')
+    # Render
+    r = pdk.Deck(
+        layers=[hex_layer, poly_no1, poly_no2],
+        initial_view_state=view_state,
+        map_style='road',
+        tooltip={"text": "Her kan det stå forskjellige ting, fx:\nGPS: {position}\nAntall: {elevationValue}"},
+    )
+    st.pydeck_chart(r, use_container_width=True)
