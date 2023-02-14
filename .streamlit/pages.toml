@@ -3,9 +3,5 @@ path = 'src/init_app.py'
 name = 'testsite'
 
 [[pages]]
-path = 'src/sol/sol_year.py'
-name = 'plusskunde-installert'
-
-[[pages]]
-path = 'src/sol/sol_month.py'
-name = 'sol-måned'
+path = 'src/pluss/plusskunder.py'
+name = 'plusskunder'
