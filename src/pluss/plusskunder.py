@@ -166,7 +166,7 @@ with st.container():
     r = pdk.Deck(
         layers=[hex_layer, poly_no1, poly_no2],
         initial_view_state=view_state,
-        map_style='Road',
+        map_style='road',
         tooltip={"text": "Her kan det stå forskjellige ting, fx:\nGPS: {position}\nAntall: {elevationValue}"},
     )
     st.pydeck_chart(r, use_container_width=True)
