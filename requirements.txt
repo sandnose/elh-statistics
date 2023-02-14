@@ -1,0 +1,5 @@
+streamlit
+st-pages
+pandas
+plotly
+pydeck
