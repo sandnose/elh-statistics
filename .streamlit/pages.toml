@@ -4,7 +4,7 @@ name = 'testsite'
 
 [[pages]]
 path = 'src/sol/sol_year.py'
-name = 'sol-år'
+name = 'plusskunde-installert'
 
 [[pages]]
 path = 'src/sol/sol_month.py'
