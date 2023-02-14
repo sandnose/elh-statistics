@@ -42,7 +42,7 @@ def monthify(_df, col: str) -> pd.DataFrame:
     _monthly = _monthly_open - _monthly_close
     _monthly['sum'] = _monthly.sum(axis=1)
     _monthly['cumsum'] = _monthly['sum'].cumsum()
-    _monthly.index = _monthly.index.astype(int)
+    _monthly.index = _monthly.index.astype(int).astype(str)
     return _monthly
 
 # loading data
@@ -90,7 +90,7 @@ with st.container():
 
     with tab3:
         st.write('Tabell, interaktiv. Her kan vi rydde i data som vi ønsker')
-        st.dataframe(cap_monthly.fillna(0).astype(int), use_container_width=True)
+        st.dataframe(cap_monthly.fillna(0).astype(float), use_container_width=True)
         
 with st.container():
     st.subheader('Detaljer per måned')
