@@ -161,16 +161,12 @@ with st.container():
     )
 
     view_state = pdk.ViewState(latitude=60.2, longitude=10, zoom=5, bearing=0, pitch=30)
-
-    map_design = st.selectbox('Velg design på kart',
-        options=['light', 'dark', 'road'],
-        format_func=str.capitalize)
-    st.write(f'Bruker kart design: {map_design}')
+    
     # Render
     r = pdk.Deck(
         layers=[hex_layer, poly_no1, poly_no2],
         initial_view_state=view_state,
-        map_style='road',
+        map_style='Road',
         tooltip={"text": "Her kan det stå forskjellige ting, fx:\nGPS: {position}\nAntall: {elevationValue}"},
     )
     st.pydeck_chart(r, use_container_width=True)
