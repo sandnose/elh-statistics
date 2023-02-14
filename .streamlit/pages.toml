@@ -1,0 +1,11 @@
+[[pages]]
+path = 'src/init_app.py'
+name = 'testsite'
+
+[[pages]]
+path = 'src/sol/sol_year.py'
+name = 'sol-år'
+
+[[pages]]
+path = 'src/sol/sol_month.py'
+name = 'sol-måned'
