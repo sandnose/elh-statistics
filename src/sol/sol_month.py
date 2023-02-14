@@ -9,7 +9,7 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 # config
-st.set_page_config(layout='wide')
+st.set_page_config(layout='wide', initial_sidebar_state="collapsed")
 elh_colors = ["#006600", '#F2E500', '#785F4B', '#005886', '#c2e9c4']
 month_names = ['jan', 'feb', 'mar', 'apr', 'mai', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'des']
 

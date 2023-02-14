@@ -7,7 +7,8 @@ import streamlit as st
 from st_pages import show_pages_from_config
 
 # app config
-st.set_page_config(layout='wide', menu_items={'About': "# Elhub statistikk. Skrive noe mer?"})
+st.set_page_config(layout='wide', menu_items={'About': "# Elhub statistikk. Skrive noe mer?"},
+                   initial_sidebar_state="collapsed")
 no_sidebar_style = """
     <style>
         div[data-testid="stSidebarNav"] {display: none;}
