@@ -11,6 +11,7 @@ from plotly.subplots import make_subplots
 
 # config
 st.set_page_config(layout='wide', initial_sidebar_state="collapsed")
+pd.options.display.float_format = '{:,.2f}'.format
 elh_colors = ["#006600", '#F2E500', '#785F4B', '#005886', '#c2e9c4']
 month_names = ['jan', 'feb', 'mar', 'apr', 'mai', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'des']
 reduce_header_height_style = """
@@ -85,11 +86,11 @@ with st.container():
 
     with tab2:
         st.write('Tabell, interaktiv. Her kan vi rydde i data som vi ønsker')
-        st.dataframe(inst_monthly, use_container_width=True)
+        st.dataframe(inst_monthly.fillna(0).astype(int), use_container_width=True)
 
     with tab3:
         st.write('Tabell, interaktiv. Her kan vi rydde i data som vi ønsker')
-        st.dataframe(cap_monthly, use_container_width=True)
+        st.dataframe(cap_monthly.fillna(0).astype(int), use_container_width=True)
         
 with st.container():
     st.subheader('Detaljer per måned')
