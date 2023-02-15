@@ -20,8 +20,6 @@ elrgb_colors = [[0, 102, 0], [120, 95, 75], [242, 229, 0], [213, 210, 195], [209
 month_names = ['jan', 'feb', 'mar', 'apr', 'mai',
                'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'des']
 st.markdown('''<style> div.block-container {padding-top:1rem;}</style>''', unsafe_allow_html=True)
-width = st.number_input("Width", 0, 300, 128)
-st.markdown(f'''<style> .st-e4 {{max-width: {width}px}}</style>''', unsafe_allow_html=True)
 
 # functions
 # can be cached if wanted
