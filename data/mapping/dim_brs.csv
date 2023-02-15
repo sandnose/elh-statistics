@@ -1,0 +1,47 @@
+﻿id,process_code,group
+1,BRS-NO-101,Leverandørskifteprosesser
+2,BRS-NO-102,Innflyttinger
+3,BRS-NO-103,Innflyttinger
+4,BRS-NO-104,"Oppstart fra leveringsplikt"
+5,BRS-NO-111,Reverseringer
+6,BRS-NO-121,"Grunndataoppdateringer nettselskap"
+7,BRS-NO-122,"Grunndataoppdateringer nettselskap"
+8,BRS-NO-123,Innflyttinger
+9,BRS-NO-132,Reverseringer
+10,BRS-NO-133,Reverseringer
+11,BRS-NO-201,"Utflyttinger/opphør"
+12,BRS-NO-202,"Utflyttinger/opphør"
+13,BRS-NO-211,"Utflyttinger/opphør"
+14,BRS-NO-212,"Grunndataoppdateringer nettselskap"
+15,BRS-NO-213,"Grunndataoppdateringer nettselskap"
+49,BRS-NO-214,Reverseringer
+16,BRS-NO-221,Reverseringer
+17,BRS-NO-222,Reverseringer
+18,BRS-NO-223,Reverseringer
+19,BRS-NO-224,Reverseringer
+20,BRS-NO-301,"Grunndataoppdateringer kraftleverandør"
+21,BRS-NO-302,"Grunndataoppdateringer nettselskap"
+22,BRS-NO-303,"Spørringer"
+31,BRS-NO-305,NA
+23,BRS-NO-306,"Grunndataoppdateringer nettselskap"
+24,BRS-NO-311,NA
+32,BRS-NO-312,NA
+33,BRS-NO-313,NA
+25,BRS-NO-315,"Spørringer"
+34,BRS-NO-317,"Oppdatering av estimert årsforbruk"
+35,BRS-NO-318,NA
+37,BRS-NO-322,NA
+38,BRS-NO-324,NA
+40,BRS-NO-332,NA
+26,BRS-NO-402,Reverseringer
+42,BRS-NO-501,NA
+43,BRS-NO-502,NA
+44,BRS-NO-503,NA
+45,BRS-NO-511,NA
+46,BRS-NO-512,NA
+27,BRS-NO-601,NA
+28,BRS-NO-602,NA
+29,BRS-NO-611,"Spørringer"
+30,BRS-NO-622,"Oppdatering av tredjepartstilgang"
+47,BRS-NO-623,NA
+48,BRS-NO-624,NA

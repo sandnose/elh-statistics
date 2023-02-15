@@ -93,13 +93,11 @@ with st.container():
 
     with tab2:
         st.write('Tabell, interaktiv. Her kan vi rydde i data som vi ønsker')
-        st.dataframe(inst_monthly.fillna(0).astype(
-            int), use_container_width=True)
+        st.dataframe(inst_monthly.fillna(0).astype(int).astype(str), use_container_width=True)
 
     with tab3:
         st.write('Tabell, interaktiv. Her kan vi rydde i data som vi ønsker')
-        st.dataframe(cap_monthly.fillna(0).astype(
-            float), use_container_width=True)
+        st.dataframe(cap_monthly.fillna(0).astype(float), use_container_width=True)
 
 with st.container():
     st.subheader('Detaljer per måned')
@@ -130,17 +128,14 @@ with st.container():
     st.plotly_chart(fig, use_container_width=True)
 
 with st.container():
-    st.subheader('Geografisk fremstilling')
+    st.subheader('Geografi')
     st.markdown('''Hvor er plusskundeanleggene i landet? \nHold inne _ctrl_ og bruk musepekeren
-    for å vinkle kartet. Bruk pilen oppe i høyre hjørne for fullskjerm.  \nHer kan vi legge disse 
-    fargede feltene akkurat som vi vil, men behøver hjelp for å få definerte koordinater for 
-    prisområdene.''')
-    
-    
+    for å vinkle kartet. Bruk pilen oppe i høyre hjørne for fullskjerm.''')
+
     df_map = pd.DataFrame({'lat': df['Latitude'], 'lon': df['Longitude'], 'mba': df['name']})
     df_map = df_map[df_map['lat'] != '(blank)']
     df_map[['lat', 'lon']] = df_map[['lat', 'lon']].apply(pd.to_numeric)
-    
+
     no1 = pdk.Layer(
         "HexagonLayer",
         df_map[df_map['mba'] == 'NO1'],
@@ -151,7 +146,7 @@ with st.container():
         get_position=['lon', 'lat'],
         colorRange=[elrgb_colors[0]]
     )
-    
+
     no2 = pdk.Layer(
         "HexagonLayer",
         df_map[df_map['mba'] == 'NO2'],
@@ -162,7 +157,7 @@ with st.container():
         get_position=['lon', 'lat'],
         colorRange=[elrgb_colors[1]]
     )
-    
+
     no3 = pdk.Layer(
         "HexagonLayer",
         df_map[df_map['mba'] == 'NO3'],
@@ -173,7 +168,7 @@ with st.container():
         get_position=['lon', 'lat'],
         colorRange=[elrgb_colors[2]]
     )
-    
+
     no4 = pdk.Layer(
         "HexagonLayer",
         df_map[df_map['mba'] == 'NO4'],
@@ -184,7 +179,7 @@ with st.container():
         get_position=['lon', 'lat'],
         colorRange=[elrgb_colors[3]]
     )
-    
+
     no5 = pdk.Layer(
         "HexagonLayer",
         df_map[df_map['mba'] == 'NO5'],
