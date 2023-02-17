@@ -60,7 +60,7 @@ if 'optionKey' not in st.session_state:
 with st.container():
     # container 2
     st.subheader('Markedsprosesser')
-    col1, col2 = st.columns([8,2])
+    col1, col2 = st.columns([7,3])
     col1.markdown('''Oversikt over antall markedsprosesser på månedsbasis fordelt på typer og
                 tilstand. Diagrammet viser antall initierte markedsprosesser Elhub mottok per måned.
                 Initierte markedsprosesser er alle prosesser som er sendt inn før Elhub prosesserer
