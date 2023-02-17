@@ -92,7 +92,7 @@ with st.container():
     try:
         fig = px.line(mplog_copy, x=mplog_copy.index.get_level_values(0), y=mplog_copy.columns,
                       markers=True, color_discrete_sequence=elhex_colors)
-        fig.update_layout(title=f'{button_state} endringer ved {", ".join(button_options)}',
+        fig.update_layout(title=f'''{button_state} prosesser''',
                              xaxis_title='Mnd', yaxis_title='Antall', legend_title='År',
                              xaxis={'tickmode': 'array',
                                     'tickvals': mplog_copy.index.get_level_values(0),
