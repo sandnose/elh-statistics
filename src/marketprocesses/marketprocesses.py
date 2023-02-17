@@ -54,7 +54,7 @@ options = mplog['brs'].unique().tolist()
 state = mplog['state'].unique().tolist()
 
 if 'optionKey' not in st.session_state:
-    st.session_state['groupKey'] = groups[:-5]
+    st.session_state['groupKey'] = groups[:-6]
     group_change()
 
 with st.container():
@@ -76,7 +76,7 @@ with st.container():
 
     # multiselect buttons in columns within container
     col3, col4 = st.columns(2)
-    button_groups = col3.multiselect('Velg markedsprossessgruppe', groups, groups[:-5],
+    button_groups = col3.multiselect('Velg markedsprossessgruppe', groups, groups[:-6],
                                      key='groupKey', on_change=group_change)
     button_options = col4.multiselect('''Spesifiser enkelt BRS om ønskelig
                                       (påvirker ikke gruppevalg)''', options,
