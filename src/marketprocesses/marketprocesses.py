@@ -75,6 +75,7 @@ with st.container():
     col1, col2 = st.columns(2)
     button_groups = col1.multiselect('Velg markedsprossessgruppe', groups, groups[:-3],
                                      key='groupKey', on_change=group_change)
+    group_change()
     button_options = col2.multiselect('Spesifiser enkelt BRS om ønskelig', options,
                                       options, key='optionKey')
     button_state = col1.selectbox('Velg tilstand', state, 1)
