@@ -73,7 +73,7 @@ with st.container():
     
     # multiselect buttons in columns within container
     col1, col2 = st.columns(2)
-    button_groups = col1.multiselect('Velg markedsprossessgruppe', groups, groups[:-3],
+    button_groups = col1.multiselect('Velg markedsprossessgruppe', groups, groups,
                                      key='groupKey', on_change=group_change)
     button_options = col2.multiselect('Spesifiser enkelt BRS om ønskelig', options,
                                       options, key='optionKey')
