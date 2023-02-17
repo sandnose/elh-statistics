@@ -54,13 +54,13 @@ options = mplog['brs'].unique().tolist()
 state = mplog['state'].unique().tolist()
 
 if 'optionKey' not in st.session_state:
-    st.session_state['groupKey'] = groups
+    st.session_state['groupKey'] = groups[:-5]
     group_change()
 
 with st.container():
     # container 2
     st.subheader('Markedsprosesser')
-    col1, col2 = st.columns([10,1])
+    col1, col2 = st.columns([7,3])
     col1.markdown('''Oversikt over antall markedsprosesser på månedsbasis fordelt på typer og
                 tilstand. Diagrammet viser antall initierte markedsprosesser Elhub mottok per måned.
                 Initierte markedsprosesser er alle prosesser som er sendt inn før Elhub prosesserer
@@ -76,7 +76,7 @@ with st.container():
 
     # multiselect buttons in columns within container
     col3, col4 = st.columns(2)
-    button_groups = col3.multiselect('Velg markedsprossessgruppe', groups, groups[:-3],
+    button_groups = col3.multiselect('Velg markedsprossessgruppe', groups, groups[:-5],
                                      key='groupKey', on_change=group_change)
     button_options = col4.multiselect('''Spesifiser enkelt BRS om ønskelig
                                       (påvirker ikke gruppevalg)''', options,
