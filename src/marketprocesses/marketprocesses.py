@@ -100,7 +100,7 @@ with st.container():
                              legend={'title': 'År', 'bgcolor': '#f0f2f6', 'bordercolor': 'black'},
                              paper_bgcolor='rgb(209,232,250)',
                              plot_bgcolor='#f0f2f6',
-                             height=800
+                             height=700
                              )
 
         st.plotly_chart(fig, use_container_width=True)
