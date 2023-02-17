@@ -3,14 +3,12 @@
 @author: christsa
 """
 # Import external libraries
+from datetime import datetime
+
 import streamlit as st
 import pandas as pd
-import pydeck as pdk
 import numpy as np
-import plotly.graph_objects as go
 import plotly.express as px
-from plotly.subplots import make_subplots
-from datetime import datetime
 
 # config
 st.set_page_config(layout='wide', initial_sidebar_state="collapsed")
@@ -36,7 +34,8 @@ def load_data() -> pd.DataFrame():
     dat.columns = ['usage_date', 'brs', 'group', 'state', 'count']
     dat['year'] = [datetime.strptime(row, '%b-%y ').year for row in dat['usage_date']]
     dat['month'] = [datetime.strptime(row, '%b-%y ').month for row in dat['usage_date']]
-    
+    dat['count'] = dat['count'].astype('Int64')
+
     return dat
 
 def group_change():
@@ -55,37 +54,42 @@ options = mplog['brs'].unique().tolist()
 state = mplog['state'].unique().tolist()
 
 if 'optionKey' not in st.session_state:
-    st.session_state.optionKey = options
+    st.session_state['groupKey'] = groups
+    group_change()
 
 with st.container():
     # container 2
     st.subheader('Markedsprosesser')
-    st.markdown('''Oversikt over antall markedsprosesser på månedsbasis fordelt på typer og
+    col1, col2 = st.columns([10,1])
+    col1.markdown('''Oversikt over antall markedsprosesser på månedsbasis fordelt på typer og
                 tilstand. Diagrammet viser antall initierte markedsprosesser Elhub mottok per måned.
                 Initierte markedsprosesser er alle prosesser som er sendt inn før Elhub prosesserer
                 og validerer, og eventuelt godkjenner eller avviser.  
+                Bruk knappene til høyre for å laste ned hele grunnlaget eller grunnlaget for
+                utsnittet du har valgt under.  
                 Du kan lese mer om markedsprosessene på våre
                 [dokumentasjonsider](https://dok.elhub.no/ediel1141/brs-markedsprosesser)''')
     st.info('''Du kan velge ønskede år i menyen til høyre for grafen, dobbelklikk for å markere kun
             ett år, dobbelklikk igjen for å markere alle.  
             Man kan også zoome slik man ønsker i grafen, og dobbelklikke midt i bildet for å
             resette. Eller du kan bruke menyen oppe til høyre for grafen.''')
-    
+
     # multiselect buttons in columns within container
-    col1, col2 = st.columns(2)
-    button_groups = col1.multiselect('Velg markedsprossessgruppe', groups, groups[:-3],
+    col3, col4 = st.columns(2)
+    button_groups = col3.multiselect('Velg markedsprossessgruppe', groups, groups[:-3],
                                      key='groupKey', on_change=group_change)
-    group_change()
-    button_options = col2.multiselect('Spesifiser enkelt BRS om ønskelig', options,
-                                      options, key='optionKey')
-    button_state = col1.selectbox('Velg tilstand', state, 1)
+    button_options = col4.multiselect('''Spesifiser enkelt BRS om ønskelig
+                                      (påvirker ikke gruppevalg)''', options,
+                                      options,
+                                      key='optionKey')
+    button_state = col3.selectbox('Velg tilstand', state, 1)
 
     # data engineering for container plot
     mplog_copy = mplog['count'].groupby([mplog['year'], mplog['month'], mplog['brs'],
                                          mplog['state']]).sum().unstack(0)
     years = mplog_copy.columns
     mplog_copy = mplog_copy.reset_index()
-    mplog_copy = mplog_copy[years][(mplog_copy['brs'].isin(button_options)) & 
+    mplog_copy = mplog_copy[years][(mplog_copy['brs'].isin(button_options)) &
                                    (mplog_copy['state'] == button_state)].groupby(
                                        [mplog_copy['month'], mplog_copy['state']]).sum()
     mplog_copy.replace(0, np.nan, inplace=True)
@@ -105,5 +109,19 @@ with st.container():
                              )
 
         st.plotly_chart(fig, use_container_width=True)
+        st.caption(f'''Markedsprosesser i vsiningen: {', '.join(button_options)}''')
     except ValueError:
         st.error('Vennligst velg minst en markedsprosess')
+
+    col2.download_button(label='Last ned hele grunnlaget som CSV',
+                         data=mplog.to_csv(index=False).encode('utf-8-sig'),
+                         file_name=f'elhub-markedsprosesser-{pd.Timestamp.today()}.csv',
+                         mime='text/csv',
+                         help='''Returnerer en .csv fil med alle markedsprosessene elhub har mottatt
+                         gruppert på måned og år.''')
+    col2.download_button(label='Last ned utsnitt som CSV',
+                         data=mplog_copy.to_csv().encode('utf-8-sig'),
+                         file_name=f'elhub-markedsprosesser-{pd.Timestamp.today()}.csv',
+                         mime='text/csv',
+                         help='''Returnerer en .csv fil med markedsprosessene du har valgt i menyene
+                         under.''')
