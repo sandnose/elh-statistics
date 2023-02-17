@@ -73,7 +73,7 @@ with st.container():
     
     # multiselect buttons in columns within container
     col1, col2 = st.columns(2)
-    button_groups = col1.multiselect('Velg markedsprossessgruppe', groups, groups,
+    button_groups = col1.multiselect('Velg markedsprossessgruppe', groups, groups[:-3],
                                      key='groupKey', on_change=group_change)
     button_options = col2.multiselect('Spesifiser enkelt BRS om ønskelig', options,
                                       options, key='optionKey')
@@ -99,7 +99,8 @@ with st.container():
                                     'ticktext': month_names},
                              legend={'title': 'År', 'bgcolor': '#f0f2f6', 'bordercolor': 'black'},
                              paper_bgcolor='rgb(209,232,250)',
-                             plot_bgcolor='#f0f2f6'
+                             plot_bgcolor='#f0f2f6',
+                             height=800
                              )
 
         st.plotly_chart(fig, use_container_width=True)
